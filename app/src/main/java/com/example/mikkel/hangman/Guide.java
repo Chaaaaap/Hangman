@@ -6,20 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Guide extends AppCompatActivity {
+public class Guide extends AppCompatActivity implements View.OnClickListener{
+
+    Button btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        Button btn_back = (Button) findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //finish();
-                onBackPressed();
-            }
-        });
+        btn_back = (Button) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        onBackPressed();
     }
 }
