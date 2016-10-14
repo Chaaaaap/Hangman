@@ -11,4 +11,39 @@
     tools:context="com.example.mikkel.hangman.Game"
     android:background="@android:color/holo_green_dark">
 
+    <TextView
+        android:text="The Hangman Game!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView4"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:id="@+id/gameText" />
+
+    <Button
+        android:text="Guess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:id="@+id/btn_guess" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/gameText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="55dp"
+        android:id="@+id/guess"
+        android:hint="Enter a letter to make a guess" />
 </RelativeLayout>
