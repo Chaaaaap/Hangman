@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mikkel.hangman.DifficultyFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <Button
+        android:text="HArd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_hard"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_easy"
+        android:layout_above="@+id/btn_medium"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_medium"
+        android:layout_above="@+id/btn_hard"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -15,6 +16,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
     Button btn_guess;
     TextView gameText;
     EditText guessText;
+    FrameLayout dif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
