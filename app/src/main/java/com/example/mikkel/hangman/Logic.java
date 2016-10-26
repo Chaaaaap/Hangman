@@ -5,6 +5,8 @@ package com.example.mikkel.hangman;
  */
 
 
+import android.widget.Switch;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +17,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class Logic {
-    private ArrayList<String> muligeOrd = new ArrayList<String>();
+    private ArrayList<String> muligeOrd= new ArrayList<String>();
     private String ordet;
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;
@@ -59,14 +61,24 @@ public class Logic {
 
 
     public Logic() {
-        muligeOrd.add("bil");
-        muligeOrd.add("computer");
-        muligeOrd.add("programmering");
-        muligeOrd.add("motorvej");
-        muligeOrd.add("busrute");
-        muligeOrd.add("gangsti");
-        muligeOrd.add("skovsnegl");
-        muligeOrd.add("solsort");
+        switch(DifficultyFragment.difficulty) {
+            case "hard": muligeOrd.add("psykopat");
+                        muligeOrd.add("aubergine");
+                        muligeOrd.add("situation");
+                        muligeOrd.add("apoteker");
+                        muligeOrd.add("zebra");
+            case "med": muligeOrd.add("remoulade");
+                        muligeOrd.add("cykel");
+                        muligeOrd.add("lagkage");
+                        muligeOrd.add("sterin");
+                        muligeOrd.add("tændstik");
+            case "easy": muligeOrd.add("nemt");
+                        muligeOrd.add("super");
+                        muligeOrd.add("billede");
+                        muligeOrd.add("bog");
+                        muligeOrd.add("grimt");
+                break;
+        }
         nulstil();
     }
 

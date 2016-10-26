@@ -16,7 +16,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
     Button btn_guess;
     TextView gameText;
     EditText guessText;
-    FrameLayout dif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         gameText = (TextView) findViewById(R.id.gameText);
         guessText = (EditText) findViewById(R.id.guess);
         btn_guess = (Button) findViewById(R.id.btn_guess);
+        gameText.setText(logic.getSynligtOrd());
     }
 
     @Override
@@ -35,6 +35,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
             String guess = guessText.getText().toString();
             if(guess.length() == 1) {
                 logic.gætBogstav(guess);
+                gameText.setText(logic.getSynligtOrd());
             } else {
 
             }
