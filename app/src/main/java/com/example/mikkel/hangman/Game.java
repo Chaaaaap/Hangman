@@ -91,67 +91,67 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        String letter = null;
         if(v == a) {
-
+            letter = "a";
         } else if(v == b) {
-
+            letter = "b";
         } else if(v == c) {
-
+            letter = "c";
         } else if(v == d) {
-
+            letter = "d";
         } else if(v == e) {
-
+            letter = "e";
         } else if(v == f) {
-
+            letter = "f";
         } else if(v == g) {
-
+            letter = "g";
         } else if(v == h) {
-
+            letter = "h";
         } else if(v == i) {
-
+            letter = "i";
         } else if(v == j) {
-
+            letter = "j";
         } else if(v == k) {
-
+            letter = "k";
         } else if(v == l) {
-
+            letter = "l";
         } else if(v == m) {
-
+            letter = "m";
         } else if(v == n) {
-
+            letter = "n";
         } else if(v == o) {
-
+            letter = "o";
         } else if(v == p) {
-
+            letter = "p";
         } else if(v == q) {
-
+            letter = "q";
         } else if(v == r) {
-
+            letter = "r";
         } else if(v == s) {
-
+            letter = "s";
         } else if(v == t) {
-
+            letter = "t";
         } else if(v == u) {
-
+            letter = "u";
         } else if(v == v) {
-
+            letter = "v";
         } else if(v == w) {
-
+            letter = "w";
         } else if(v == y) {
-
+            letter = "y";
         } else if(v == x) {
-
+            letter = "x";
         } else if(v == z) {
-
+            letter = "z";
         } else if(v == æ) {
-
+            letter = "æ";
         } else if(v == ø) {
-
+            letter = "ø";
         } else if(v == å) {
-
-        } else if(v == b) {
-
+            letter = "å";
         }
-
+        logic.gætBogstav(letter);
+        gameText.setText(logic.getSynligtOrd());
     }
 }
