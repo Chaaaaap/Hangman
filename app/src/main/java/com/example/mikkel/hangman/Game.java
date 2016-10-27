@@ -112,62 +112,91 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         String letter = null;
         if(v == a) {
             letter = "a";
+            a.setVisibility(View.INVISIBLE);
         } else if(v == b) {
             letter = "b";
+            b.setVisibility(View.INVISIBLE);
         } else if(v == c) {
             letter = "c";
+            c.setVisibility(View.INVISIBLE);
         } else if(v == d) {
             letter = "d";
+            d.setVisibility(View.INVISIBLE);
         } else if(v == e) {
             letter = "e";
+            e.setVisibility(View.INVISIBLE);
         } else if(v == f) {
             letter = "f";
+            f.setVisibility(View.INVISIBLE);
         } else if(v == g) {
             letter = "g";
+            g.setVisibility(View.INVISIBLE);
         } else if(v == h) {
             letter = "h";
+            h.setVisibility(View.INVISIBLE);
         } else if(v == i) {
             letter = "i";
+            i.setVisibility(View.INVISIBLE);
         } else if(v == j) {
             letter = "j";
+            j.setVisibility(View.INVISIBLE);
         } else if(v == k) {
             letter = "k";
+            k.setVisibility(View.INVISIBLE);
         } else if(v == l) {
             letter = "l";
+            l.setVisibility(View.INVISIBLE);
         } else if(v == m) {
             letter = "m";
+            m.setVisibility(View.INVISIBLE);
         } else if(v == n) {
             letter = "n";
+            n.setVisibility(View.INVISIBLE);
         } else if(v == o) {
             letter = "o";
+            o.setVisibility(View.INVISIBLE);
         } else if(v == p) {
             letter = "p";
+            p.setVisibility(View.INVISIBLE);
         } else if(v == q) {
             letter = "q";
+            q.setVisibility(View.INVISIBLE);
         } else if(v == r) {
             letter = "r";
+            r.setVisibility(View.INVISIBLE);
         } else if(v == s) {
             letter = "s";
+            s.setVisibility(View.INVISIBLE);
         } else if(v == t) {
             letter = "t";
+            t.setVisibility(View.INVISIBLE);
         } else if(v == u) {
             letter = "u";
+            u.setVisibility(View.INVISIBLE);
         } else if(v == v) {
             letter = "v";
+            v.setVisibility(View.INVISIBLE);
         } else if(v == w) {
             letter = "w";
+            w.setVisibility(View.INVISIBLE);
         } else if(v == y) {
             letter = "y";
+            y.setVisibility(View.INVISIBLE);
         } else if(v == x) {
             letter = "x";
+            x.setVisibility(View.INVISIBLE);
         } else if(v == z) {
             letter = "z";
+            z.setVisibility(View.INVISIBLE);
         } else if(v == æ) {
             letter = "æ";
+            æ.setVisibility(View.INVISIBLE);
         } else if(v == ø) {
             letter = "ø";
+            ø.setVisibility(View.INVISIBLE);
         } else if(v == å) {
             letter = "å";
+            å.setVisibility(View.INVISIBLE);
         }
         logic.gætBogstav(letter);
         if(logic.erSidsteBogstavKorrekt() != true) {
