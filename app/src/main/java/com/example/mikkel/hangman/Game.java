@@ -2,26 +2,16 @@ package com.example.mikkel.hangman;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-
-import static com.example.mikkel.hangman.R.drawable.forkert1;
-import static com.example.mikkel.hangman.R.drawable.forkert2;
-import static com.example.mikkel.hangman.R.drawable.forkert3;
-import static com.example.mikkel.hangman.R.drawable.forkert4;
-import static com.example.mikkel.hangman.R.drawable.forkert5;
-import static com.example.mikkel.hangman.R.drawable.forkert6;
 
 public class Game extends AppCompatActivity implements View.OnClickListener{
 
@@ -41,9 +31,9 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         logic = new Logic();
         gameText = (TextView) findViewById(R.id.word);
         gameText.setText(logic.getSynligtOrd());
-        image = (ImageView) findViewById(R.id.galge);
+        //image = (ImageView) findViewById(R.id.galge);
         initButtons();
-        something = "Guess the word: " + logic.getSynligtOrd();
+        //something = "Guess the word: " + logic.getSynligtOrd();
     }
 
     private void initButtons() {
@@ -55,6 +45,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         f = (Button) findViewById(R.id.F);
         g = (Button) findViewById(R.id.G);
         h = (Button) findViewById(R.id.H);
+        i = (Button) findViewById(R.id.I);
         j = (Button) findViewById(R.id.J);
         k = (Button) findViewById(R.id.K);
         l = (Button) findViewById(R.id.L);
@@ -203,13 +194,12 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
             Context ctx = getApplicationContext();
             CharSequence txt = "You guessed wrong!";
             int dur = Toast.LENGTH_SHORT;
-            Toast msg = new Toast(ctx);
-            msg.setText(txt);
-            msg.setDuration(dur);
+            //Toast msg = new Toast(ctx);
+            Toast msg = Toast.makeText(ctx,txt,dur);
             msg.show();
         }
         usedLetters = logic.getBrugteBogstaver();
-        something = "Guess the word: " + logic.getSynligtOrd()+"\nWrong letters: ";
+        something = "Guess the word: " + logic.getSynligtOrd()+"\nUsed letters: ";
         for(String stuff : usedLetters) {
             something += " "+stuff+", ";
         }
@@ -233,7 +223,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
             }
         }
 
-
+        /* TODO FUCKING NULLPOINTER? */
         if(logic.getAntalForkerteBogstaver() == 1) {
             image.setImageResource(R.drawable.forkert1);
         } else if(logic.getAntalForkerteBogstaver() == 2) {
