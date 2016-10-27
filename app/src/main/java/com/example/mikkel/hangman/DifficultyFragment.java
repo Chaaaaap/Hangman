@@ -50,6 +50,7 @@ public class DifficultyFragment extends Fragment implements View.OnClickListener
         } else if(v == btn_hard) {
             difficulty = "hard";
         }
+
         Intent i = new Intent(getActivity(), Game.class);
         startActivity(i);
     }
