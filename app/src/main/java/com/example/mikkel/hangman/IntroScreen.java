@@ -35,4 +35,16 @@ public class IntroScreen extends AppCompatActivity implements View.OnClickListen
             startActivity(i);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container).isVisible()) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
+            ft.commit();
+        } else {
+            finish();
+        }
+    }
 }
