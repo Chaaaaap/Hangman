@@ -20,6 +20,15 @@
         android:id="@+id/textView4"
         android:textAlignment="center" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/galge"
+        android:id="@+id/galge"
+        android:layout_marginTop="33dp"
+        android:layout_alignParentStart="true"
+        android:layout_weight="0.76" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,14 +36,6 @@
         android:layout_alignParentStart="true"
         android:id="@+id/word"
         android:layout_weight="0.16" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/galge"
-        android:id="@+id/imageView2"
-        android:layout_marginTop="33dp"
-        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:orientation="horizontal"

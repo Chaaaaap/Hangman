@@ -6,9 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
+import static com.example.mikkel.hangman.R.drawable.forkert1;
+import static com.example.mikkel.hangman.R.drawable.forkert2;
+import static com.example.mikkel.hangman.R.drawable.forkert3;
+import static com.example.mikkel.hangman.R.drawable.forkert4;
+import static com.example.mikkel.hangman.R.drawable.forkert5;
+import static com.example.mikkel.hangman.R.drawable.forkert6;
 
 public class Game extends AppCompatActivity implements View.OnClickListener{
 
@@ -16,6 +26,9 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
     Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,y,x,z,æ,ø,å;
     TextView gameText;
     EditText guessText;
+    String something;
+    ImageView image;
+    ArrayList<String> usedLetters = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +38,9 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         logic = new Logic();
         gameText = (TextView) findViewById(R.id.word);
         gameText.setText(logic.getSynligtOrd());
+        image = (ImageView) findViewById(R.id.galge);
         initButtons();
+        something = "Guess the word: " + logic.getSynligtOrd();
     }
 
     private void initButtons() {
@@ -152,6 +167,26 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
             letter = "å";
         }
         logic.gætBogstav(letter);
-        gameText.setText(logic.getSynligtOrd());
+        usedLetters = logic.getBrugteBogstaver();
+        something = "Guess the word: " + logic.getSynligtOrd()+"\nWrong letters: ";
+        for(String stuff : usedLetters) {
+            something += " "+stuff+", ";
+        }
+        gameText.setText(something);
+
+
+        if(logic.getAntalForkerteBogstaver() == 1) {
+            image.setImageResource(R.drawable.forkert1);
+        } else if(logic.getAntalForkerteBogstaver() == 2) {
+            image.setImageResource(R.drawable.forkert2);
+        } else if(logic.getAntalForkerteBogstaver() == 3) {
+            image.setImageResource(R.drawable.forkert2);
+        } else if(logic.getAntalForkerteBogstaver() == 4) {
+            image.setImageResource(R.drawable.forkert2);
+        } else if(logic.getAntalForkerteBogstaver() == 5) {
+            image.setImageResource(R.drawable.forkert2);
+        } else if(logic.getAntalForkerteBogstaver() == 6) {
+            image.setImageResource(R.drawable.forkert2);
+        }
     }
 }
