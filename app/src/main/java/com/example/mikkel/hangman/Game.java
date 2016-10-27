@@ -1,5 +1,7 @@
 package com.example.mikkel.hangman;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -167,12 +170,39 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
             letter = "å";
         }
         logic.gætBogstav(letter);
+        if(logic.erSidsteBogstavKorrekt() != true) {
+            Context ctx = getApplicationContext();
+            CharSequence txt = "You guessed wrong!";
+            int dur = Toast.LENGTH_SHORT;
+            Toast msg = new Toast(ctx);
+            msg.setText(txt);
+            msg.setDuration(dur);
+            msg.show();
+        }
         usedLetters = logic.getBrugteBogstaver();
         something = "Guess the word: " + logic.getSynligtOrd()+"\nWrong letters: ";
         for(String stuff : usedLetters) {
             something += " "+stuff+", ";
         }
         gameText.setText(something);
+
+        if(logic.erSpilletSlut()) {
+            if(logic.erSpilletVundet()) {
+                Context ctx = getApplicationContext();
+                Dialog dialog = new Dialog(ctx);
+                dialog.setTitle("Victory!");
+                TextView txt = new TextView(ctx);
+                txt.setText("Congratulations, you win!");
+                dialog.setContentView(txt);
+            } else if(logic.erSpilletTabt()) {
+                Context ctx = getApplicationContext();
+                Dialog dialog = new Dialog(ctx);
+                dialog.setTitle("Defeat!");
+                TextView txt = new TextView(ctx);
+                txt.setText("You lose!");
+                dialog.setContentView(txt);
+            }
+        }
 
 
         if(logic.getAntalForkerteBogstaver() == 1) {
