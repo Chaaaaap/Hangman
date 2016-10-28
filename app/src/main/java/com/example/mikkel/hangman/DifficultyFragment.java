@@ -52,6 +52,7 @@ public class DifficultyFragment extends Fragment implements View.OnClickListener
         }
 
         Intent i = new Intent(getActivity(), Game.class);
+        getActivity().onBackPressed();
         startActivity(i);
     }
 }

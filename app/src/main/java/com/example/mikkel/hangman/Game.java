@@ -1,8 +1,9 @@
 package com.example.mikkel.hangman;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Game extends AppCompatActivity implements View.OnClickListener{
+public class Game extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
 
     Logic logic;
-    Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,y,x,z,æ,ø,å;
+    Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u, V,w,y,x,z,æ,ø,å;
     TextView gameText;
     EditText guessText;
     String something;
@@ -31,9 +32,8 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         logic = new Logic();
         gameText = (TextView) findViewById(R.id.word);
         gameText.setText(logic.getSynligtOrd());
-        //image = (ImageView) findViewById(R.id.galge);
+        image = (ImageView) findViewById(R.id.galge);
         initButtons();
-        //something = "Guess the word: " + logic.getSynligtOrd();
     }
 
     private void initButtons() {
@@ -58,7 +58,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         s = (Button) findViewById(R.id.S);
         t = (Button) findViewById(R.id.T);
         u = (Button) findViewById(R.id.U);
-        v = (Button) findViewById(R.id.V);
+        V = (Button) findViewById(R.id.V);
         w = (Button) findViewById(R.id.W);
         y = (Button) findViewById(R.id.Y);
         x = (Button) findViewById(R.id.X);
@@ -88,7 +88,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         s.setOnClickListener(this);
         t.setOnClickListener(this);
         u.setOnClickListener(this);
-        v.setOnClickListener(this);
+        V.setOnClickListener(this);
         w.setOnClickListener(this);
         y.setOnClickListener(this);
         x.setOnClickListener(this);
@@ -164,7 +164,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         } else if(v == u) {
             letter = "u";
             u.setVisibility(View.INVISIBLE);
-        } else if(v == v) {
+        } else if(v == V) {
             letter = "v";
             v.setVisibility(View.INVISIBLE);
         } else if(v == w) {
@@ -194,7 +194,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
             Context ctx = getApplicationContext();
             CharSequence txt = "You guessed wrong!";
             int dur = Toast.LENGTH_SHORT;
-            //Toast msg = new Toast(ctx);
             Toast msg = Toast.makeText(ctx,txt,dur);
             msg.show();
         }
@@ -205,37 +204,40 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         }
         gameText.setText(something);
 
-        if(logic.erSpilletSlut()) {
-            if(logic.erSpilletVundet()) {
-                Context ctx = getApplicationContext();
-                Dialog dialog = new Dialog(ctx);
-                dialog.setTitle("Victory!");
-                TextView txt = new TextView(ctx);
-                txt.setText("Congratulations, you win!");
-                dialog.setContentView(txt);
-            } else if(logic.erSpilletTabt()) {
-                Context ctx = getApplicationContext();
-                Dialog dialog = new Dialog(ctx);
-                dialog.setTitle("Defeat!");
-                TextView txt = new TextView(ctx);
-                txt.setText("You lose!");
-                dialog.setContentView(txt);
-            }
+        if(logic.getAntalForkerteBogstaver() >= 6) {
+            Context ctx = getApplicationContext();
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Game.this);
+            dialog.setTitle("Defeat!");
+            String txt = "You lose!";
+            CharSequence positive = "Sad panda :(";
+            dialog.setMessage(txt).setPositiveButton(positive, this);
+            dialog.show();
+        } else if(logic.erSpilletVundet()) {
+            Context ctx = getApplicationContext();
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Game.this);
+            dialog.setTitle("Victory!");
+            CharSequence positive = "Cool!";
+            dialog.setMessage("Congratulations, you win!").setPositiveButton(positive, this);
+            dialog.show();
         }
 
-        /* TODO FUCKING NULLPOINTER? */
         if(logic.getAntalForkerteBogstaver() == 1) {
             image.setImageResource(R.drawable.forkert1);
         } else if(logic.getAntalForkerteBogstaver() == 2) {
             image.setImageResource(R.drawable.forkert2);
         } else if(logic.getAntalForkerteBogstaver() == 3) {
-            image.setImageResource(R.drawable.forkert2);
+            image.setImageResource(R.drawable.forkert3);
         } else if(logic.getAntalForkerteBogstaver() == 4) {
-            image.setImageResource(R.drawable.forkert2);
+            image.setImageResource(R.drawable.forkert4);
         } else if(logic.getAntalForkerteBogstaver() == 5) {
-            image.setImageResource(R.drawable.forkert2);
+            image.setImageResource(R.drawable.forkert5);
         } else if(logic.getAntalForkerteBogstaver() == 6) {
-            image.setImageResource(R.drawable.forkert2);
+            image.setImageResource(R.drawable.forkert6);
         }
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        finish();
     }
 }

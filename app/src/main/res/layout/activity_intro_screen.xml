@@ -11,11 +11,6 @@
     tools:context="com.example.mikkel.hangman.IntroScreen"
     android:background="@android:color/holo_green_dark">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container" />
-
     <TextView
         android:text="Velkommen til hangman!"
         android:layout_width="match_parent"
@@ -26,27 +21,6 @@
         android:textSize="18sp"
         android:textAlignment="center" />
 
-    <Button
-        android:text="Instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:id="@+id/btn_guide"
-        android:layout_below="@+id/btn_play"
-        android:layout_centerHorizontal="true"
-        style="@style/Widget.AppCompat.Button.Colored" />
-
-    <Button
-        android:text="Play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:id="@+id/btn_play"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/btn_guide"
-        android:layout_alignEnd="@+id/btn_guide"
-        style="@style/Widget.AppCompat.Button.Colored" />
-
     <TextView
         android:text="Made by Mikkel Hansen - S143603"
         android:layout_width="match_parent"
@@ -55,4 +29,31 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/textView2"
         android:textAlignment="center" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/btn_guide"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_guide"
+        android:layout_below="@+id/btn_play"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp" />
+
+    <Button
+        android:text="Play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_play"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="163dp" />
 </RelativeLayout>
