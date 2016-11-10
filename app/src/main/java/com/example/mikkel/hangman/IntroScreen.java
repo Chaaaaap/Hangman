@@ -27,9 +27,8 @@ public class IntroScreen extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v == btn_play) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, new DifficultyFragment());
-            ft.commit();
+            Intent i = new Intent(IntroScreen.this, Game.class);
+            startActivity(i);
         } else if (v == btn_guide) {
             Intent i = new Intent(IntroScreen.this, Guide.class);
             startActivity(i);

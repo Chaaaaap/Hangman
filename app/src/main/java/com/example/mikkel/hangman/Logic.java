@@ -5,6 +5,7 @@ package com.example.mikkel.hangman;
  */
 
 
+import android.os.AsyncTask;
 import android.widget.Switch;
 
 import java.io.BufferedReader;
@@ -18,7 +19,7 @@ import java.util.Random;
 
 public class Logic {
     private ArrayList<String> muligeOrd= new ArrayList<String>();
-    private String ordet;
+    private String ordet = "";
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;
     private int antalForkerteBogstaver;
@@ -59,27 +60,9 @@ public class Logic {
         return spilletErTabt || spilletErVundet;
     }
 
-
+    public void setMuligeOrd(ArrayList<String> muligeOrd) { this.muligeOrd = muligeOrd; }
     public Logic() {
-        switch(DifficultyFragment.difficulty) {
-            case "hard": muligeOrd.add("psykopat");
-                        muligeOrd.add("aubergine");
-                        muligeOrd.add("situation");
-                        muligeOrd.add("apoteker");
-                        muligeOrd.add("zebra");
-            case "med": muligeOrd.add("remoulade");
-                        muligeOrd.add("cykel");
-                        muligeOrd.add("lagkage");
-                        muligeOrd.add("sterin");
-                        muligeOrd.add("tændstik");
-            case "easy": muligeOrd.add("nemt");
-                        muligeOrd.add("super");
-                        muligeOrd.add("billede");
-                        muligeOrd.add("bog");
-                        muligeOrd.add("grimt");
-                break;
-        }
-        nulstil();
+//            new GetWordsAsyncTask().execute();
     }
 
     public void nulstil() {
@@ -163,6 +146,32 @@ public class Logic {
 
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
+    }
+
+    private class GetWordsAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... params) {
+            ArrayList<String> list = new ArrayList<>();
+            try {
+                String data = hentUrl("http://dr.dk");
+                data = data.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
+
+
+                list.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> list) {
+            System.out.println(list);
+            muligeOrd = list;
+            nulstil();
+            System.out.println(ordet);
+        }
     }
 }
 

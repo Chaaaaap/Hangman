@@ -2,6 +2,7 @@ package com.example.mikkel.hangman;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Game extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
 
@@ -29,11 +33,12 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        logic = new Logic();
+        new GetWordsAsyncTask().execute();
+//        logic = new Logic();
         gameText = (TextView) findViewById(R.id.word);
-        gameText.setText(logic.getSynligtOrd());
+//        gameText.setText(logic.getSynligtOrd());
         image = (ImageView) findViewById(R.id.galge);
-        initButtons();
+//        initButtons();
     }
 
     private void initButtons() {
@@ -239,5 +244,35 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
     @Override
     public void onClick(DialogInterface dialog, int which) {
         finish();
+    }
+
+    private class GetWordsAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... params) {
+
+            logic = new Logic();
+            ArrayList<String> list = new ArrayList<>();
+            try {
+                String data = logic.hentUrl("http://dr.dk");
+                data = data.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
+
+
+                list.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> list) {
+            System.out.println(list);
+            logic.setMuligeOrd(list);
+            logic.nulstil();
+            System.out.println(logic.getOrdet());
+            initButtons();
+            gameText.setText(logic.getSynligtOrd());
+        }
     }
 }
