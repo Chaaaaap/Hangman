@@ -2,8 +2,10 @@ package com.example.mikkel.hangman;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,20 +29,26 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
     String something;
     ImageView image;
     ArrayList<String> usedLetters = new ArrayList<String>();
+    SharedPreferences score;
+    SharedPreferences.Editor edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
+        score = getSharedPreferences("score", Context.MODE_PRIVATE);
+        edit = score.edit();
         new GetWordsAsyncTask().execute();
-//        logic = new Logic();
         gameText = (TextView) findViewById(R.id.word);
-//        gameText.setText(logic.getSynligtOrd());
         image = (ImageView) findViewById(R.id.galge);
-//        initButtons();
     }
 
+//    private void initScore() {
+//        if (score.getInt("score", 0) == 0) {
+//            score.edit().putInt("wins", score.getInt("wins", 0)+1);
+//
+//        }
+//    }
     private void initButtons() {
         a = (Button) findViewById(R.id.A);
         b = (Button) findViewById(R.id.B);
@@ -105,95 +113,11 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
 
     @Override
     public void onClick(View v) {
-        String letter = null;
-        if(v == a) {
-            letter = "a";
-            a.setVisibility(View.INVISIBLE);
-        } else if(v == b) {
-            letter = "b";
-            b.setVisibility(View.INVISIBLE);
-        } else if(v == c) {
-            letter = "c";
-            c.setVisibility(View.INVISIBLE);
-        } else if(v == d) {
-            letter = "d";
-            d.setVisibility(View.INVISIBLE);
-        } else if(v == e) {
-            letter = "e";
-            e.setVisibility(View.INVISIBLE);
-        } else if(v == f) {
-            letter = "f";
-            f.setVisibility(View.INVISIBLE);
-        } else if(v == g) {
-            letter = "g";
-            g.setVisibility(View.INVISIBLE);
-        } else if(v == h) {
-            letter = "h";
-            h.setVisibility(View.INVISIBLE);
-        } else if(v == i) {
-            letter = "i";
-            i.setVisibility(View.INVISIBLE);
-        } else if(v == j) {
-            letter = "j";
-            j.setVisibility(View.INVISIBLE);
-        } else if(v == k) {
-            letter = "k";
-            k.setVisibility(View.INVISIBLE);
-        } else if(v == l) {
-            letter = "l";
-            l.setVisibility(View.INVISIBLE);
-        } else if(v == m) {
-            letter = "m";
-            m.setVisibility(View.INVISIBLE);
-        } else if(v == n) {
-            letter = "n";
-            n.setVisibility(View.INVISIBLE);
-        } else if(v == o) {
-            letter = "o";
-            o.setVisibility(View.INVISIBLE);
-        } else if(v == p) {
-            letter = "p";
-            p.setVisibility(View.INVISIBLE);
-        } else if(v == q) {
-            letter = "q";
-            q.setVisibility(View.INVISIBLE);
-        } else if(v == r) {
-            letter = "r";
-            r.setVisibility(View.INVISIBLE);
-        } else if(v == s) {
-            letter = "s";
-            s.setVisibility(View.INVISIBLE);
-        } else if(v == t) {
-            letter = "t";
-            t.setVisibility(View.INVISIBLE);
-        } else if(v == u) {
-            letter = "u";
-            u.setVisibility(View.INVISIBLE);
-        } else if(v == V) {
-            letter = "v";
-            v.setVisibility(View.INVISIBLE);
-        } else if(v == w) {
-            letter = "w";
-            w.setVisibility(View.INVISIBLE);
-        } else if(v == y) {
-            letter = "y";
-            y.setVisibility(View.INVISIBLE);
-        } else if(v == x) {
-            letter = "x";
-            x.setVisibility(View.INVISIBLE);
-        } else if(v == z) {
-            letter = "z";
-            z.setVisibility(View.INVISIBLE);
-        } else if(v == æ) {
-            letter = "æ";
-            æ.setVisibility(View.INVISIBLE);
-        } else if(v == ø) {
-            letter = "ø";
-            ø.setVisibility(View.INVISIBLE);
-        } else if(v == å) {
-            letter = "å";
-            å.setVisibility(View.INVISIBLE);
-        }
+        String letter;
+        letter =  ((Button)v).getText().toString();
+        letter = letter.toLowerCase();
+        v.setVisibility(View.INVISIBLE);
+
         logic.gætBogstav(letter);
         if(logic.erSidsteBogstavKorrekt() != true) {
             Context ctx = getApplicationContext();
@@ -211,19 +135,25 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
 
         if(logic.getAntalForkerteBogstaver() >= 6) {
             Context ctx = getApplicationContext();
+            edit.putInt("losses", score.getInt("losses", 0)+1);
+            edit.commit();
             AlertDialog.Builder dialog = new AlertDialog.Builder(Game.this);
             dialog.setTitle("Defeat!");
-            String txt = "You lose!";
+            String txt = "You lose!\nYou have now lost "+score.getInt("losses", 0)+" times.";
             CharSequence positive = "Sad panda :(";
             dialog.setMessage(txt).setPositiveButton(positive, this);
             dialog.show();
+
         } else if(logic.erSpilletVundet()) {
             Context ctx = getApplicationContext();
+            edit.putInt("wins", score.getInt("wins", 0)+1);
+            edit.commit();
             AlertDialog.Builder dialog = new AlertDialog.Builder(Game.this);
             dialog.setTitle("Victory!");
             CharSequence positive = "Cool!";
-            dialog.setMessage("Congratulations, you win!").setPositiveButton(positive, this);
+            dialog.setMessage("Congratulations! You won!\nYou have now won "+score.getInt("wins", 0)+" times.").setPositiveButton(positive, this);
             dialog.show();
+
         }
 
         if(logic.getAntalForkerteBogstaver() == 1) {
