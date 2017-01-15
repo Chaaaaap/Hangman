@@ -9,9 +9,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,20 +28,30 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
     Logic logic;
     Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u, V,w,y,x,z,æ,ø,å;
     TextView gameText;
-    EditText guessText;
     String something;
+    ListView listView;
     ImageView image;
     ArrayList<String> usedLetters = new ArrayList<String>();
     SharedPreferences score;
     SharedPreferences.Editor edit;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        logic = new Logic();
+
+
+
+
+
         score = getSharedPreferences("score", Context.MODE_PRIVATE);
         edit = score.edit();
         new GetWordsAsyncTask().execute();
+
+
+
         gameText = (TextView) findViewById(R.id.word);
         image = (ImageView) findViewById(R.id.galge);
     }
@@ -111,6 +124,30 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
         å.setOnClickListener(this);
     }
 
+    private String chooseWord() {
+        if(DifficultyFragment.difficulty.equals("multi")) {
+            listView = (ListView) findViewById(R.id.listView);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, logic.getMuligeOrd());
+            listView.setAdapter(adapter);
+            listView.setVisibility(View.VISIBLE);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String word = listView.getItemAtPosition(i).toString();
+                    logic.setOrdet(word);
+                    listView.setVisibility(View.GONE);
+                    System.out.println(logic.getOrdet());
+                    initButtons();
+                    gameText.setText(logic.getSynligtOrd());
+                    logic.opdaterSynligtOrd();
+                }
+            });
+        } else {
+            listView.setVisibility(View.GONE);
+        }
+        return logic.getOrdet();
+    }
+
     @Override
     public void onClick(View v) {
         String letter;
@@ -181,7 +218,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
 
-            logic = new Logic();
+
             ArrayList<String> list = new ArrayList<>();
             try {
                 String data = logic.hentUrl("http://dr.dk");
@@ -200,9 +237,10 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
             System.out.println(list);
             logic.setMuligeOrd(list);
             logic.nulstil();
-            System.out.println(logic.getOrdet());
-            initButtons();
-            gameText.setText(logic.getSynligtOrd());
+            if(DifficultyFragment.difficulty.equals("multi")) {
+                chooseWord();
+            }
+
         }
     }
 }

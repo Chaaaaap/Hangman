@@ -22,7 +22,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:text="Hangman is a game where you have to guess a word one letter at a time.\n\nWhen you guess a letter correct, the letter will be shown in the word.\nWhen you guess a letter wrong you'll lose one try.\nWhen you have guessed wrong 6 times you have lost."
+        android:text="Hangman is a game where you have to guess a word one letter at a time.\n\nWhen you guess a letter correct, the letter will be shown in the word.\nWhen you guess a letter wrong you'll lose one try.\nWhen you have guessed wrong 6 times you have lost.\n\nSingleplayer will get a random word for you to guess.\nIn multiplayer you'll choose the word for your opponent from a list."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/instruction_header"

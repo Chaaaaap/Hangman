@@ -5,9 +5,6 @@ package com.example.mikkel.hangman;
  */
 
 
-import android.os.AsyncTask;
-import android.widget.Switch;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +12,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Random;
 
 public class Logic {
     private ArrayList<String> muligeOrd= new ArrayList<String>();
@@ -61,8 +57,13 @@ public class Logic {
     }
 
     public void setMuligeOrd(ArrayList<String> muligeOrd) { this.muligeOrd = muligeOrd; }
+
+    public void setOrdet(String word) { ordet = word; }
+
+    public ArrayList<String> getMuligeOrd() { return muligeOrd; }
+
     public Logic() {
-//            new GetWordsAsyncTask().execute();
+        
     }
 
     public void nulstil() {
@@ -70,12 +71,12 @@ public class Logic {
         antalForkerteBogstaver = 0;
         spilletErVundet = false;
         spilletErTabt = false;
-        ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
+//        ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
         opdaterSynligtOrd();
     }
 
 
-    private void opdaterSynligtOrd() {
+    public void opdaterSynligtOrd() {
         synligtOrd = "";
         spilletErVundet = true;
         for (int n = 0; n < ordet.length(); n++) {
@@ -148,30 +149,5 @@ public class Logic {
         nulstil();
     }
 
-    private class GetWordsAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
-
-        @Override
-        protected ArrayList<String> doInBackground(Void... params) {
-            ArrayList<String> list = new ArrayList<>();
-            try {
-                String data = hentUrl("http://dr.dk");
-                data = data.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
-
-
-                list.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<String> list) {
-            System.out.println(list);
-            muligeOrd = list;
-            nulstil();
-            System.out.println(ordet);
-        }
-    }
 }
 

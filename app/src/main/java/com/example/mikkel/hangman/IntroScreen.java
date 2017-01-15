@@ -2,6 +2,7 @@ package com.example.mikkel.hangman;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,8 +28,12 @@ public class IntroScreen extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v == btn_play) {
-            Intent i = new Intent(IntroScreen.this, Game.class);
-            startActivity(i);
+            DifficultyFragment.difficulty = "";
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, new DifficultyFragment());
+            ft.commit();
+//            Intent i = new Intent(IntroScreen.this, Game.class);
+//            startActivity(i);
         } else if (v == btn_guide) {
             Intent i = new Intent(IntroScreen.this, Guide.class);
             startActivity(i);

@@ -5,16 +5,7 @@
     tools:context="com.example.mikkel.hangman.DifficultyFragment">
 
     <Button
-        android:text="HArd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_hard"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Easy"
+        android:text="Sigleplayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_easy"
@@ -22,10 +13,10 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Medium"
+        android:text="Multiplayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_medium"
-        android:layout_above="@+id/btn_hard"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

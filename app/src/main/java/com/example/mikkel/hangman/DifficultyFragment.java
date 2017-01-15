@@ -15,7 +15,7 @@ import android.widget.Button;
  */
 public class DifficultyFragment extends Fragment implements View.OnClickListener {
 
-    private Button btn_easy, btn_med, btn_hard;
+    private Button btn_single, btn_multiplayer;
     public static String difficulty;
 
     public DifficultyFragment() {
@@ -32,23 +32,19 @@ public class DifficultyFragment extends Fragment implements View.OnClickListener
     }
 
     public void onViewCreated(View v, Bundle savedInstanceState) {
-        btn_easy = (Button) v.findViewById(R.id.btn_easy);
-        btn_med = (Button) v.findViewById(R.id.btn_medium);
-        btn_hard = (Button) v.findViewById(R.id.btn_hard);
+        btn_single = (Button) v.findViewById(R.id.btn_easy);
+        btn_multiplayer = (Button) v.findViewById(R.id.btn_medium);
 
-        btn_easy.setOnClickListener(this);
-        btn_med.setOnClickListener(this);
-        btn_hard.setOnClickListener(this);
+        btn_single.setOnClickListener(this);
+        btn_multiplayer.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v == btn_easy) {
-            difficulty = "easy";
-        } else if(v == btn_med) {
-            difficulty = "medium";
-        } else if(v == btn_hard) {
-            difficulty = "hard";
+        if(v == btn_single) {
+            difficulty = "single";
+        } else if(v == btn_multiplayer) {
+            difficulty = "multi";
         }
 
         Intent i = new Intent(getActivity(), Game.class);
