@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Logic {
     private ArrayList<String> muligeOrd= new ArrayList<String>();
@@ -71,13 +72,16 @@ public class Logic {
         antalForkerteBogstaver = 0;
         spilletErVundet = false;
         spilletErTabt = false;
-//        ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
+        if(DifficultyFragment.difficulty.equals("single")) {
+            ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
+        }
         opdaterSynligtOrd();
     }
 
 
     public void opdaterSynligtOrd() {
         synligtOrd = "";
+        System.out.println(ordet);
         spilletErVundet = true;
         for (int n = 0; n < ordet.length(); n++) {
             String bogstav = ordet.substring(n, n + 1);

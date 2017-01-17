@@ -41,11 +41,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         logic = new Logic();
-
-
-
-
-
+        listView = (ListView) findViewById(R.id.listView);
         score = getSharedPreferences("score", Context.MODE_PRIVATE);
         edit = score.edit();
         new GetWordsAsyncTask().execute();
@@ -126,7 +122,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
 
     private String chooseWord() {
         if(DifficultyFragment.difficulty.equals("multi")) {
-            listView = (ListView) findViewById(R.id.listView);
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, logic.getMuligeOrd());
             listView.setAdapter(adapter);
             listView.setVisibility(View.VISIBLE);
@@ -139,6 +134,12 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
                     System.out.println(logic.getOrdet());
                     initButtons();
                     gameText.setText(logic.getSynligtOrd());
+                    logic.nulstil();
+                    something = "Guess the word: " + logic.getSynligtOrd()+"\nUsed letters: ";
+                    for(String stuff : usedLetters) {
+                        something += " "+stuff+", ";
+                    }
+                    gameText.setText(something);
                     logic.opdaterSynligtOrd();
                 }
             });
@@ -221,11 +222,11 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
 
             ArrayList<String> list = new ArrayList<>();
             try {
-                String data = logic.hentUrl("http://dr.dk");
+                String data = logic.hentUrl("https://dr.dk");
                 data = data.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
 
 
-                list.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+                list.addAll(new HashSet<>(Arrays.asList(data.split(" "))));
             } catch(IOException e) {
                 e.printStackTrace();
             }
@@ -236,9 +237,19 @@ public class Game extends AppCompatActivity implements View.OnClickListener, Dia
         protected void onPostExecute(ArrayList<String> list) {
             System.out.println(list);
             logic.setMuligeOrd(list);
-            logic.nulstil();
             if(DifficultyFragment.difficulty.equals("multi")) {
                 chooseWord();
+            } else {
+                initButtons();
+                gameText.setText(logic.getSynligtOrd());
+                listView.setVisibility(View.GONE);
+                logic.nulstil();
+                something = "Guess the word: " + logic.getSynligtOrd()+"\nUsed letters: ";
+                for(String stuff : usedLetters) {
+                    something += " "+stuff+", ";
+                }
+                gameText.setText(something);
+                logic.opdaterSynligtOrd();
             }
 
         }
